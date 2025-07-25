@@ -7,8 +7,11 @@ import {
   Flex,
   Stack,
 } from '@chakra-ui/react';
+import { useForm } from '../../../contexts/Shop/index.jsx';
 
 function Step1() {
+  const { formData, updateField } = useForm();
+
   return (
     <Box width='100%' px='10px' mt='60px'>
       <Heading size='lg' mb='20px'>
@@ -23,6 +26,8 @@ function Step1() {
             w='60%'
             h='40px'
             pl='10px'
+            value={formData.name}
+            onChange={(e) => updateField('name', e.target.value)}
           />
         </FormControl>
         <FormControl h='auto'>
@@ -33,6 +38,8 @@ function Step1() {
             w='60%'
             h='40px'
             pl='10px'
+            value={formData.cardNumber}
+            onChange={(e) => updateField('cardNumber', e.target.value)}
           />
         </FormControl>
         <Flex gap={10}>
@@ -44,6 +51,8 @@ function Step1() {
               w='100%'
               h='40px'
               pl='10px'
+              value={formData.expiryDate}
+              onChange={(e) => updateField('expiryDate', e.target.value)}
             />
           </FormControl>
           <FormControl h='auto' flex='1'>
@@ -54,6 +63,8 @@ function Step1() {
               w='100%'
               h='40px'
               pl='10px'
+              value={formData.cvc}
+              onChange={(e) => updateField('cvc', e.target.value)}
             />
           </FormControl>
         </Flex>

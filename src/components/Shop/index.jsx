@@ -5,6 +5,7 @@ import Step2 from './Step2';
 import Step3 from './Step3';
 import ProgressControl from './ProgressControl';
 import Cart from './Cart';
+import { ShopProvider } from '../../contexts/Shop/index.jsx';
 import { useState } from 'react';
 
 function Shop() {
@@ -19,16 +20,18 @@ function Shop() {
     }
   }
   return (
-    <Flex gap='60px'>
-      <Box width='60%'>
-        <StepProgress step={step}/>
-        {renderStep()}
-        <ProgressControl step={step} setStep={setStep}/>
-      </Box>
-      <Box width='40%'>
-        <Cart />
-      </Box>
-    </Flex>
+    <ShopProvider>
+      <Flex gap='60px'>
+        <Box width='60%'>
+          <StepProgress step={step}/>
+          {renderStep()}
+          <ProgressControl step={step} setStep={setStep}/>
+        </Box>
+        <Box width='40%'>
+          <Cart />
+        </Box>
+      </Flex>
+    </ShopProvider>
   );
 }
 

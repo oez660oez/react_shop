@@ -8,8 +8,7 @@ import {
   Circle,
   Divider,
 } from '@chakra-ui/react';
-import { useState } from 'react';
-import { data } from '../../../constants/cartItem';
+import { useCart } from '../../../contexts/Shop/index.jsx';
 
 function CartItem({ data, quantity, onQuantityChange }) {
   const handleQuantity = (type) => {
@@ -75,27 +74,8 @@ function CartItem({ data, quantity, onQuantityChange }) {
 }
 
 function Cart() {
-  // 在父層管理所有商品的數量
-  const [quantities, setQuantities] = useState(() => {
-    const initialQuantities = {};
-    data.forEach(item => {
-      initialQuantities[item.id] = item.quantity;
-    });
-    return initialQuantities;
-  });
-
-  // 處理數量變更
-  const handleQuantityChange = (itemId, newQuantity) => {
-    setQuantities(prev => ({
-      ...prev,
-      [itemId]: newQuantity
-    }));
-  };
-
-  // 計算總價
-  const totalPrice = data.reduce((total, item) => {
-    return total + (item.price * quantities[item.id]);
-  }, 0);
+  // 使用 Context 中的資料和方法
+  const { cartData, quantities, handleQuantityChange, totalPrice } = useCart();
 
   return (
     <Box
@@ -108,7 +88,7 @@ function Cart() {
     >
       <Stack gap='30px' mb='20px'>
         <Heading size='md'>購物籃</Heading>
-        {data.map((item) => (
+        {cartData.map((item) => (
           <CartItem 
             key={item.id} 
             data={item}
